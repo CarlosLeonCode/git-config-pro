@@ -2,7 +2,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Editor from '@monaco-editor/react';
 import { FileType, FILE_NAMES, FILE_DESCRIPTIONS } from '@/lib/templates/types';
 import { useConfigStore } from '@/store/configStore';
-import { FileCode, FileText, Settings, Box, Scale } from 'lucide-react';
+import { FileCode, FileText, Settings, Box, Scale, Code2 } from 'lucide-react';
 
 const TAB_ICONS: Record<FileType, React.ReactNode> = {
   gitignore: <FileCode className="w-4 h-4" />,
@@ -25,24 +25,23 @@ export function PreviewPanel() {
 
   if (selectedTechnologies.length === 0) {
     return (
-      <div className="glass rounded-xl h-full flex flex-col items-center justify-center p-8">
+      <div className="glass rounded-2xl h-full flex flex-col items-center justify-center p-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           className="text-center max-w-md"
         >
-          <div className="w-16 h-16 rounded-2xl bg-secondary/50 flex items-center justify-center mx-auto mb-4">
-            <FileCode className="w-8 h-8 text-muted-foreground" />
+          <div className="w-20 h-20 rounded-2xl bg-secondary/50 flex items-center justify-center mx-auto mb-6 border border-border/50">
+            <Code2 className="w-10 h-10 text-muted-foreground/50" />
           </div>
-          <h3 className="text-lg font-semibold text-foreground mb-2">
+          <h3 className="text-xl font-semibold text-foreground mb-3">
             No technologies selected
           </h3>
-          <p className="text-muted-foreground text-sm">
+          <p className="text-muted-foreground leading-relaxed">
             Press{' '}
-            <kbd className="px-2 py-1 rounded bg-secondary text-foreground font-mono text-xs">
-              ⌘K
-            </kbd>{' '}
-            to search and add technologies, or drag a package.json file to auto-detect.
+            <kbd className="mx-1">⌘</kbd>
+            <kbd className="mr-1">K</kbd>
+            {' '}to search and add technologies, or drag a package.json file to auto-detect.
           </p>
         </motion.div>
       </div>
@@ -50,36 +49,31 @@ export function PreviewPanel() {
   }
 
   return (
-    <div className="glass rounded-xl h-full flex flex-col overflow-hidden">
+    <div className="glass rounded-2xl h-full flex flex-col overflow-hidden">
       {/* Tabs */}
-      <div className="flex items-center border-b border-border/50 bg-card/50">
+      <div className="flex items-center border-b border-border/50 bg-card/30">
         {availableTabs.map((type) => (
           <button
             key={type}
             onClick={() => setActiveTab(type)}
-            className={`tab-button flex items-center gap-2 relative ${
+            className={`tab-button flex items-center gap-2 ${
               activeTab === type ? 'active' : ''
             }`}
           >
             {TAB_ICONS[type]}
-            <span>{FILE_NAMES[type]}</span>
-            {activeTab === type && (
-              <motion.div
-                layoutId="activeTab"
-                className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary"
-              />
-            )}
+            <span className="font-medium">{FILE_NAMES[type]}</span>
           </button>
         ))}
       </div>
 
       {/* File Description */}
-      <div className="px-4 py-2 text-xs text-muted-foreground bg-card/30 border-b border-border/30">
+      <div className="px-4 py-2.5 text-xs text-muted-foreground bg-card/20 border-b border-border/30 flex items-center gap-2">
+        <span className="w-1.5 h-1.5 rounded-full bg-primary/60" />
         {FILE_DESCRIPTIONS[activeTab]}
       </div>
 
       {/* Editor */}
-      <div className="flex-1 relative">
+      <div className="flex-1 relative bg-card/50">
         <AnimatePresence mode="wait">
           <motion.div
             key={activeTab}
@@ -98,7 +92,8 @@ export function PreviewPanel() {
                 readOnly: true,
                 minimap: { enabled: false },
                 fontSize: 13,
-                fontFamily: "'JetBrains Mono', monospace",
+                fontFamily: "'Geist Mono', 'JetBrains Mono', monospace",
+                fontLigatures: true,
                 lineNumbers: 'on',
                 scrollBeyondLastLine: false,
                 wordWrap: 'on',
@@ -106,6 +101,8 @@ export function PreviewPanel() {
                 renderLineHighlight: 'none',
                 overviewRulerLanes: 0,
                 hideCursorInOverviewRuler: true,
+                lineHeight: 1.6,
+                letterSpacing: 0.3,
                 scrollbar: {
                   vertical: 'visible',
                   horizontal: 'hidden',

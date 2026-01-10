@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Copy, Download, Terminal, Check } from 'lucide-react';
+import { Copy, Download, Terminal, Check, Sparkles } from 'lucide-react';
 import JSZip from 'jszip';
 import { saveAs } from 'file-saver';
 import { useConfigStore } from '@/store/configStore';
@@ -45,7 +45,7 @@ export function ActionButtons() {
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: 0.2 }}
+      transition={{ delay: 0.2, type: 'spring', stiffness: 400, damping: 30 }}
       className="flex flex-wrap items-center gap-3"
     >
       <button onClick={handleCopy} className="action-button" disabled={!currentFile}>
@@ -54,12 +54,13 @@ export function ActionButtons() {
         ) : (
           <Copy className="w-4 h-4 text-muted-foreground" />
         )}
-        <span>{copiedState === 'content' ? 'Copied!' : 'Copy to clipboard'}</span>
+        <span className="text-foreground">{copiedState === 'content' ? 'Copied!' : 'Copy to clipboard'}</span>
       </button>
 
       <button onClick={handleDownloadZip} className="action-button-primary">
         <Download className="w-4 h-4" />
         <span>Download ZIP</span>
+        <Sparkles className="w-3 h-3 opacity-60" />
       </button>
 
       <button onClick={handleCopyCurl} className="action-button">
@@ -68,7 +69,7 @@ export function ActionButtons() {
         ) : (
           <Terminal className="w-4 h-4 text-muted-foreground" />
         )}
-        <span>{copiedState === 'curl' ? 'Copied!' : 'Copy curl command'}</span>
+        <span className="text-foreground">{copiedState === 'curl' ? 'Copied!' : 'Copy curl'}</span>
       </button>
     </motion.div>
   );

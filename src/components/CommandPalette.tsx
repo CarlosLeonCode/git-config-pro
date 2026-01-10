@@ -1,7 +1,6 @@
-import { useEffect, useCallback } from 'react';
+import { useEffect, useCallback, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search, X, Check } from 'lucide-react';
-import { useState } from 'react';
+import { Search, X, Check, Command } from 'lucide-react';
 import { technologies } from '@/lib/templates/technologies';
 import { useConfigStore } from '@/store/configStore';
 
@@ -57,36 +56,41 @@ export function CommandPalette() {
     <AnimatePresence>
       {isCommandOpen && (
         <>
+          {/* Backdrop */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.15 }}
-            className="fixed inset-0 bg-background/80 backdrop-blur-sm z-50"
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 bg-background/80 backdrop-blur-md z-50"
             onClick={() => setCommandOpen(false)}
           />
+          
+          {/* Modal */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.95, y: -20 }}
+            initial={{ opacity: 0, scale: 0.96, y: -10 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.95, y: -20 }}
-            transition={{ duration: 0.15, ease: 'easeOut' }}
-            className="fixed left-1/2 top-[15%] -translate-x-1/2 w-full max-w-xl z-50"
+            exit={{ opacity: 0, scale: 0.96, y: -10 }}
+            transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+            className="fixed left-1/2 top-[12%] -translate-x-1/2 w-full max-w-xl z-50"
           >
-            <div className="glass-strong rounded-xl shadow-2xl overflow-hidden glow-subtle">
+            <div className="glass-strong rounded-2xl overflow-hidden glow-ambient">
               {/* Search Input */}
               <div className="flex items-center gap-3 p-4 border-b border-border/50">
-                <Search className="w-5 h-5 text-muted-foreground" />
+                <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
+                  <Command className="w-4 h-4 text-primary" />
+                </div>
                 <input
                   type="text"
                   placeholder="Search technologies..."
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
-                  className="flex-1 bg-transparent text-foreground placeholder:text-muted-foreground outline-none text-base"
+                  className="flex-1 bg-transparent text-foreground placeholder:text-muted-foreground outline-none text-base font-medium"
                   autoFocus
                 />
                 <button
                   onClick={() => setCommandOpen(false)}
-                  className="p-1.5 rounded-md hover:bg-secondary transition-colors"
+                  className="w-8 h-8 rounded-lg flex items-center justify-center hover:bg-secondary transition-colors duration-200"
                 >
                   <X className="w-4 h-4 text-muted-foreground" />
                 </button>
@@ -95,59 +99,70 @@ export function CommandPalette() {
               {/* Results */}
               <div className="max-h-[400px] overflow-y-auto scrollbar-thin p-2">
                 {Object.entries(groupedTechnologies).map(([category, techs]) => (
-                  <div key={category} className="mb-4">
-                    <div className="text-xs font-medium text-muted-foreground uppercase tracking-wider px-3 py-2">
+                  <div key={category} className="mb-4 last:mb-0">
+                    <div className="text-[11px] font-semibold text-muted-foreground uppercase tracking-widest px-3 py-2">
                       {categoryLabels[category] || category}
                     </div>
-                    {techs.map((tech) => {
-                      const isSelected = selectedTechnologies.includes(tech.id);
-                      return (
-                        <button
-                          key={tech.id}
-                          onClick={() => toggleTechnology(tech.id)}
-                          className={`command-item w-full text-left ${
-                            isSelected ? 'bg-primary/10 border border-primary/30' : ''
-                          }`}
-                        >
-                          <span className="text-xl">{tech.icon}</span>
-                          <div className="flex-1">
-                            <div className="font-medium text-foreground">{tech.name}</div>
-                            <div className="text-sm text-muted-foreground">{tech.description}</div>
-                          </div>
-                          {isSelected && (
-                            <div className="w-5 h-5 rounded-full bg-primary flex items-center justify-center">
-                              <Check className="w-3 h-3 text-primary-foreground" />
+                    <div className="space-y-0.5">
+                      {techs.map((tech) => {
+                        const isSelected = selectedTechnologies.includes(tech.id);
+                        return (
+                          <button
+                            key={tech.id}
+                            onClick={() => toggleTechnology(tech.id)}
+                            className={`command-item w-full text-left ${isSelected ? 'selected' : ''}`}
+                          >
+                            <span className="text-xl flex-shrink-0">{tech.icon}</span>
+                            <div className="flex-1 min-w-0">
+                              <div className="font-medium text-foreground truncate">{tech.name}</div>
+                              <div className="text-sm text-muted-foreground truncate">{tech.description}</div>
                             </div>
-                          )}
-                        </button>
-                      );
-                    })}
+                            {isSelected && (
+                              <motion.div 
+                                initial={{ scale: 0 }}
+                                animate={{ scale: 1 }}
+                                className="w-5 h-5 rounded-full bg-primary flex items-center justify-center flex-shrink-0"
+                              >
+                                <Check className="w-3 h-3 text-primary-foreground" />
+                              </motion.div>
+                            )}
+                          </button>
+                        );
+                      })}
+                    </div>
                   </div>
                 ))}
                 {filteredTechnologies.length === 0 && (
-                  <div className="text-center py-8 text-muted-foreground">
-                    No technologies found for "{query}"
+                  <div className="text-center py-12">
+                    <div className="w-12 h-12 rounded-full bg-secondary/50 flex items-center justify-center mx-auto mb-3">
+                      <Search className="w-5 h-5 text-muted-foreground" />
+                    </div>
+                    <p className="text-muted-foreground">
+                      No technologies found for "<span className="text-foreground">{query}</span>"
+                    </p>
                   </div>
                 )}
               </div>
 
               {/* Footer */}
-              <div className="flex items-center justify-between px-4 py-3 border-t border-border/50 text-xs text-muted-foreground">
-                <div className="flex items-center gap-4">
-                  <span>
-                    <kbd className="px-1.5 py-0.5 rounded bg-secondary text-foreground font-mono">↑↓</kbd>{' '}
+              <div className="flex items-center justify-between px-4 py-3 border-t border-border/50 bg-card/30">
+                <div className="flex items-center gap-5 text-xs text-muted-foreground">
+                  <span className="flex items-center gap-1.5">
+                    <kbd className="min-w-[20px]">↑↓</kbd>
                     Navigate
                   </span>
-                  <span>
-                    <kbd className="px-1.5 py-0.5 rounded bg-secondary text-foreground font-mono">Enter</kbd>{' '}
+                  <span className="flex items-center gap-1.5">
+                    <kbd>Enter</kbd>
                     Select
                   </span>
-                  <span>
-                    <kbd className="px-1.5 py-0.5 rounded bg-secondary text-foreground font-mono">Esc</kbd>{' '}
+                  <span className="flex items-center gap-1.5">
+                    <kbd>Esc</kbd>
                     Close
                   </span>
                 </div>
-                <span>{selectedTechnologies.length} selected</span>
+                <span className="text-xs font-medium text-primary">
+                  {selectedTechnologies.length} selected
+                </span>
               </div>
             </div>
           </motion.div>
