@@ -1,5 +1,5 @@
 {
-  "name": "vite_react_shadcn_ts",
+  "name": "git-config-pro",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -68,6 +68,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.32.0",
+    "@netlify/plugin-nextjs": "^5.15.4",
     "@tailwindcss/typography": "^0.5.16",
     "@types/node": "^22.16.5",
     "@types/react": "^18.3.23",

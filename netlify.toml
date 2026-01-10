@@ -5,8 +5,3 @@
 [[plugins]]
   package = "@netlify/plugin-nextjs"
 
-[[redirects]]
-  from = "/*"
-  to = "/.netlify/functions/next"
-  status = 200
-  force = false
