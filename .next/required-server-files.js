@@ -93,7 +93,7 @@ self.__SERVER_FILES_MANIFEST={
     "basePath": "",
     "expireTime": 31536000,
     "generateEtags": true,
-    "poweredByHeader": true,
+    "poweredByHeader": false,
     "cacheHandlers": {},
     "cacheMaxMemorySize": 52428800,
     "compress": true,

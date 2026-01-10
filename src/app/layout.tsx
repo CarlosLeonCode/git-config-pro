@@ -3,17 +3,56 @@ import './globals.css';
 import { Providers } from '@/components/Providers';
 
 export const metadata: Metadata = {
-  title: 'GitConfig Pro - Ultimate Git Configuration Generator',
-  description: 'Generate .gitignore, .gitattributes, .editorconfig, and .dockerignore files instantly. Smart detection and 20+ technologies.',
+  title: {
+    default: 'GitConfig Pro - Ultimate Git Configuration Generator',
+    template: '%s | GitConfig Pro'
+  },
+  description: 'Generate .gitignore, .gitattributes, .editorconfig, and .dockerignore files instantly. Smart detection, 20+ technologies, and best practices for modern developers.',
+  keywords: ['git', 'gitignore', 'gitattributes', 'editorconfig', 'dockerignore', 'generator', 'developer tools', 'configuration', 'devops', 'open source'],
+  authors: [{ name: 'CarlosLeonCode', url: 'https://github.com/carlosleoncodepro' }],
+  creator: 'CarlosLeonCode',
+  publisher: 'GitConfig Pro',
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+  metadataBase: new URL('https://gitconfig-pro.vercel.app'), // Replace with actual URL
   openGraph: {
      title: 'GitConfig Pro - Ultimate Git Config Generator',
-     description: 'The smartest way to generate Git configuration files for your projects.',
+     description: 'The smartest way to generate Git configuration files. Support for Node.js, Python, Ruby, Go, and more.',
+     url: 'https://gitconfig-pro.vercel.app',
+     siteName: 'GitConfig Pro',
+     images: [
+       {
+         url: 'https://gitconfig-pro.vercel.app/og-image.png', // Assume user will add this
+         width: 1200,
+         height: 630,
+         alt: 'GitConfig Pro Preview',
+       }
+     ],
+     locale: 'en_US',
      type: 'website',
   },
   twitter: {
      card: 'summary_large_image',
+     title: 'GitConfig Pro',
+     description: 'Generate battle-tested boilerplate configurations for your next project.',
      site: '@gitconfigpro',
-  }
+     creator: '@carlosleoncode',
+     images: ['https://gitconfig-pro.vercel.app/og-image.png'],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
 };
 
 export default function RootLayout({
