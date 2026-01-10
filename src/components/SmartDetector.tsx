@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react';
 import { motion } from 'framer-motion';
-import { Upload, FileJson, FileText, Sparkles } from 'lucide-react';
+import { Upload, FileJson, FileText, Sparkles, Zap } from 'lucide-react';
 import { useConfigStore } from '@/store/configStore';
 import {
   detectTechnologiesFromPackageJson,
@@ -53,49 +53,62 @@ export function SmartDetector() {
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: 0.3 }}
-      className={`drop-zone p-6 text-center transition-all duration-300 ${
-        isDragging ? 'active border-primary/50 bg-primary/5' : ''
-      }`}
+      transition={{ delay: 0.3, type: 'spring', stiffness: 400, damping: 30 }}
+      className={`drop-zone p-8 text-center ${isDragging ? 'active' : ''}`}
       onDragOver={handleDragOver}
       onDragLeave={handleDragLeave}
       onDrop={handleDrop}
     >
-      <div className="flex flex-col items-center gap-3">
-        <div className="w-12 h-12 rounded-full bg-secondary/50 flex items-center justify-center">
+      <div className="flex flex-col items-center gap-4">
+        <motion.div 
+          className={`w-14 h-14 rounded-2xl flex items-center justify-center transition-all duration-300 ${
+            detectedCount !== null 
+              ? 'bg-primary/20 border border-primary/30' 
+              : isDragging 
+                ? 'bg-primary/10 border border-primary/20' 
+                : 'bg-secondary/50 border border-border/50'
+          }`}
+          animate={detectedCount !== null ? { scale: [1, 1.1, 1] } : {}}
+          transition={{ duration: 0.3 }}
+        >
           {detectedCount !== null ? (
-            <motion.div
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              className="text-primary"
-            >
-              <Sparkles className="w-6 h-6" />
-            </motion.div>
+            <Sparkles className="w-7 h-7 text-primary" />
           ) : (
-            <Upload className={`w-6 h-6 ${isDragging ? 'text-primary' : 'text-muted-foreground'}`} />
+            <Upload className={`w-7 h-7 transition-colors duration-300 ${isDragging ? 'text-primary' : 'text-muted-foreground'}`} />
           )}
-        </div>
+        </motion.div>
         
         {detectedCount !== null ? (
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-primary font-medium"
+            className="space-y-1"
           >
-            ✨ Detected {detectedCount} technologies!
+            <div className="text-primary font-semibold flex items-center gap-2 justify-center">
+              <Zap className="w-4 h-4" />
+              Detected {detectedCount} technologies!
+            </div>
+            <div className="text-xs text-muted-foreground">
+              Files are being generated...
+            </div>
           </motion.div>
         ) : (
           <>
-            <div className="text-sm text-muted-foreground">
-              Drop a file to auto-detect technologies
+            <div>
+              <div className="text-sm font-medium text-foreground mb-1">
+                Smart Detection
+              </div>
+              <div className="text-sm text-muted-foreground">
+                Drop a file to auto-detect technologies
+              </div>
             </div>
-            <div className="flex items-center gap-4 text-xs text-muted-foreground/70">
-              <span className="flex items-center gap-1.5">
-                <FileJson className="w-3.5 h-3.5" />
+            <div className="flex items-center gap-6 text-xs text-muted-foreground/80">
+              <span className="flex items-center gap-2">
+                <FileJson className="w-4 h-4" />
                 package.json
               </span>
-              <span className="flex items-center gap-1.5">
-                <FileText className="w-3.5 h-3.5" />
+              <span className="flex items-center gap-2">
+                <FileText className="w-4 h-4" />
                 requirements.txt
               </span>
             </div>
