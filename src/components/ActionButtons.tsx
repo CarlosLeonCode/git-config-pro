@@ -5,6 +5,7 @@ import JSZip from 'jszip';
 import { saveAs } from 'file-saver';
 import { useConfigStore } from '@/store/configStore';
 import { generateCurlCommand } from '@/lib/templates/engine';
+import { MotionButton } from './ui/MotionButton';
 
 export function ActionButtons() {
   const [copiedState, setCopiedState] = useState<'content' | 'curl' | null>(null);
@@ -42,35 +43,44 @@ export function ActionButtons() {
   }
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: 0.2, type: 'spring', stiffness: 400, damping: 30 }}
-      className="flex flex-wrap items-center gap-3"
-    >
-      <button onClick={handleCopy} className="action-button" disabled={!currentFile}>
+    <div className="flex flex-wrap items-center gap-3">
+      <button 
+        onClick={handleCopy} 
+        disabled={!currentFile}
+        className="px-4 py-2 rounded-lg border border-border/40 bg-background/50 text-sm font-medium hover:bg-background/80 transition-all flex items-center gap-2 group"
+      >
         {copiedState === 'content' ? (
-          <Check className="w-4 h-4 text-green-400" />
+          <Check className="w-4 h-4 text-green-500" />
         ) : (
-          <Copy className="w-4 h-4 text-muted-foreground" />
+          <Copy className="w-4 h-4 text-muted-foreground group-hover:text-foreground transition-colors" />
         )}
-        <span className="text-foreground">{copiedState === 'content' ? 'Copied!' : 'Copy to clipboard'}</span>
+        <span className={copiedState === 'content' ? 'text-green-500' : 'text-muted-foreground group-hover:text-foreground transition-colors'}>
+          {copiedState === 'content' ? 'Copied' : 'Copy Content'}
+        </span>
       </button>
 
-      <button onClick={handleDownloadZip} className="action-button-primary">
+      <button 
+        onClick={handleDownloadZip} 
+        className="px-4 py-2 rounded-lg bg-foreground text-background text-sm font-bold hover:opacity-90 transition-all flex items-center gap-2 shadow-sm"
+      >
         <Download className="w-4 h-4" />
-        <span>Download ZIP</span>
-        <Sparkles className="w-3 h-3 opacity-60" />
+        Download ZIP
       </button>
 
-      <button onClick={handleCopyCurl} className="action-button">
+      {/* TODO: Uncomment cURL button and add logic  */}
+      {/* <button 
+        onClick={handleCopyCurl} 
+        className="px-4 py-2 rounded-lg border border-border/40 bg-background/50 text-sm font-medium hover:bg-background/80 transition-all flex items-center gap-2 group"
+      >
         {copiedState === 'curl' ? (
-          <Check className="w-4 h-4 text-green-400" />
+          <Check className="w-4 h-4 text-green-500" />
         ) : (
-          <Terminal className="w-4 h-4 text-muted-foreground" />
+          <Terminal className="w-4 h-4 text-muted-foreground group-hover:text-foreground transition-colors" />
         )}
-        <span className="text-foreground">{copiedState === 'curl' ? 'Copied!' : 'Copy curl'}</span>
-      </button>
-    </motion.div>
+        <span className={copiedState === 'curl' ? 'text-green-500' : 'text-muted-foreground group-hover:text-foreground transition-colors'}>
+          {copiedState === 'curl' ? 'Copied' : 'Copy cURL'}
+        </span>
+      </button> */}
+    </div>
   );
 }

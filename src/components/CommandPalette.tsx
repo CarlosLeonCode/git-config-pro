@@ -3,6 +3,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Search, X, Check, Command } from 'lucide-react';
 import { technologies } from '@/lib/templates/technologies';
 import { useConfigStore } from '@/store/configStore';
+import { MotionButton } from './ui/MotionButton';
+import { cn } from '@/lib/utils';
 
 export function CommandPalette() {
   const [query, setQuery] = useState('');
@@ -72,7 +74,7 @@ export function CommandPalette() {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.96, y: -10 }}
             transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
-            className="fixed left-1/2 top-[12%] -translate-x-1/2 w-full max-w-xl z-50"
+            className="fixed left-[40%] top-[12%] -translate-x-1/2 w-full max-w-xl z-50"
           >
             <div className="glass-strong rounded-2xl overflow-hidden glow-ambient">
               {/* Search Input */}
@@ -107,10 +109,14 @@ export function CommandPalette() {
                       {techs.map((tech) => {
                         const isSelected = selectedTechnologies.includes(tech.id);
                         return (
-                          <button
+                          <MotionButton
                             key={tech.id}
                             onClick={() => toggleTechnology(tech.id)}
-                            className={`command-item w-full text-left ${isSelected ? 'selected' : ''}`}
+                            variant="ghost"
+                            className={cn(
+                              "command-item w-full text-left justify-start",
+                              isSelected && "selected bg-primary/10 border-primary/30"
+                            )}
                           >
                             <span className="text-xl flex-shrink-0">{tech.icon}</span>
                             <div className="flex-1 min-w-0">
@@ -121,12 +127,12 @@ export function CommandPalette() {
                               <motion.div 
                                 initial={{ scale: 0 }}
                                 animate={{ scale: 1 }}
-                                className="w-5 h-5 rounded-full bg-primary flex items-center justify-center flex-shrink-0"
+                                className="w-5 h-5 rounded-full bg-primary flex items-center justify-center flex-shrink-0 shadow-lg shadow-primary/20"
                               >
                                 <Check className="w-3 h-3 text-primary-foreground" />
                               </motion.div>
                             )}
-                          </button>
+                          </MotionButton>
                         );
                       })}
                     </div>

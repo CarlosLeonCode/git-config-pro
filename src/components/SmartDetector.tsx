@@ -59,61 +59,31 @@ export function SmartDetector() {
       onDragLeave={handleDragLeave}
       onDrop={handleDrop}
     >
-      <div className="flex flex-col items-center gap-4">
+      <div className="flex flex-col items-center gap-3">
         <motion.div 
-          className={`w-14 h-14 rounded-2xl flex items-center justify-center transition-all duration-300 ${
+          className={`w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-300 ${
             detectedCount !== null 
-              ? 'bg-primary/20 border border-primary/30' 
+              ? 'bg-primary/10 border border-primary/20' 
               : isDragging 
                 ? 'bg-primary/10 border border-primary/20' 
-                : 'bg-secondary/50 border border-border/50'
+                : 'bg-card/50 border border-border/20'
           }`}
-          animate={detectedCount !== null ? { scale: [1, 1.1, 1] } : {}}
-          transition={{ duration: 0.3 }}
         >
           {detectedCount !== null ? (
-            <Sparkles className="w-7 h-7 text-primary" />
+            <Zap className="w-6 h-6 text-primary" />
           ) : (
-            <Upload className={`w-7 h-7 transition-colors duration-300 ${isDragging ? 'text-primary' : 'text-muted-foreground'}`} />
+            <Upload className={`w-6 h-6 ${isDragging ? 'text-primary' : 'text-muted-foreground/40'}`} />
           )}
         </motion.div>
         
-        {detectedCount !== null ? (
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="space-y-1"
-          >
-            <div className="text-primary font-semibold flex items-center gap-2 justify-center">
-              <Zap className="w-4 h-4" />
-              Detected {detectedCount} technologies!
-            </div>
-            <div className="text-xs text-muted-foreground">
-              Files are being generated...
-            </div>
-          </motion.div>
-        ) : (
-          <>
-            <div>
-              <div className="text-sm font-medium text-foreground mb-1">
-                Smart Detection
-              </div>
-              <div className="text-sm text-muted-foreground">
-                Drop a file to auto-detect technologies
-              </div>
-            </div>
-            <div className="flex items-center gap-6 text-xs text-muted-foreground/80">
-              <span className="flex items-center gap-2">
-                <FileJson className="w-4 h-4" />
-                package.json
-              </span>
-              <span className="flex items-center gap-2">
-                <FileText className="w-4 h-4" />
-                requirements.txt
-              </span>
-            </div>
-          </>
-        )}
+        <div className="text-center">
+          <div className="text-sm font-medium text-foreground">
+            {detectedCount !== null ? `Detected ${detectedCount} Techs` : 'Smart Detection'}
+          </div>
+          <p className="text-xs text-muted-foreground/60 mt-1">
+            {detectedCount !== null ? 'Config updated automatically' : 'Drag package.json or requirements.txt'}
+          </p>
+        </div>
       </div>
     </motion.div>
   );

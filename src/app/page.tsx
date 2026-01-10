@@ -2,48 +2,15 @@
 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { FileCode, Zap, Layers, Sparkles, ArrowRight, Github, Shield, Command, Heart, GitFork, Star, ExternalLink } from 'lucide-react';
-import { ThemeToggle } from '@/components/ThemeToggle';
+import { FileCode, Zap, Layers, Sparkles, ArrowRight, Github, Shield, Command, Heart, GitFork, Star } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import Navigation from '@/components/Navigation'
+import Footer from '@/components/Footer'
 
 export default function Index() {
   return (
-    <div className="min-h-screen bg-background relative overflow-hidden flex flex-col">
-      {/* Background Effects */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-[-20%] left-1/4 w-[800px] h-[600px] bg-primary/[0.05] rounded-full blur-[120px] animate-pulse" style={{ animationDuration: '8s' }} />
-        <div className="absolute bottom-[-10%] right-1/4 w-[600px] h-[500px] bg-accent/[0.05] rounded-full blur-[100px] animate-pulse" style={{ animationDuration: '10s', animationDelay: '2s' }} />
-        <div 
-          className="absolute inset-0 opacity-[0.02]"
-          style={{
-            backgroundImage: `
-              linear-gradient(hsl(var(--foreground)) 1px, transparent 1px),
-              linear-gradient(90deg, hsl(var(--foreground)) 1px, transparent 1px)
-            `,
-            backgroundSize: '60px 60px'
-          }}
-        />
-        <div className="absolute top-0 inset-x-0 h-32 bg-gradient-to-b from-background to-transparent" />
-        <div className="absolute bottom-0 inset-x-0 h-32 bg-gradient-to-t from-background to-transparent" />
-      </div>
-
-      {/* Navigation */}
-      <nav className="relative z-50 border-b border-border/40 backdrop-blur-sm">
-        <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <div className="bg-primary/10 p-2 rounded-lg border border-primary/20">
-              <FileCode className="w-5 h-5 text-primary" />
-            </div>
-            <span className="font-bold text-lg tracking-tight">GitConfig Pro</span>
-          </div>
-          <div className="flex items-center gap-4">
-            <ThemeToggle />
-            <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground transition-colors hidden sm:block">
-              <Github className="w-5 h-5" />
-            </a>
-          </div>
-        </div>
-      </nav>
+    <div className="min-h-screen bg-background/60 relative overflow-hidden flex flex-col">
+      <Navigation />
 
       {/* Hero Section */}
       <main className="flex-1 relative z-10 flex flex-col justify-center items-center text-center px-4 py-20 lg:py-32">
@@ -73,9 +40,6 @@ export default function Index() {
                 Start Generating <ArrowRight className="ml-2 w-4 h-4" />
               </Button>
             </Link>
-            <Button variant="outline" size="lg" className="h-12 px-8 text-base rounded-xl glass hover:bg-secondary/50">
-              <Command className="mr-2 w-4 h-4" /> View Documentation
-            </Button>
           </div>
         </motion.div>
 
@@ -174,70 +138,3 @@ function FeatureCard({ icon, title, description }: { icon: React.ReactNode, titl
   );
 }
 
-function Footer() {
-  return (
-    <footer className="relative z-10 border-t border-border/40 bg-background/50 backdrop-blur-xl">
-      <div className="container mx-auto px-4 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
-          <div className="space-y-4">
-            <div className="flex items-center gap-2">
-              <div className="bg-primary/10 p-2 rounded-lg border border-primary/20">
-                <FileCode className="w-5 h-5 text-primary" />
-              </div>
-              <span className="font-bold text-lg tracking-tight">GitConfig Pro</span>
-            </div>
-            <p className="text-sm text-muted-foreground leading-relaxed">
-              The ultimate configuration orchestrator for modern developers. Built with ❤️ for the open source community.
-            </p>
-          </div>
-          
-          <div>
-            <h4 className="font-semibold mb-4">Product</h4>
-            <ul className="space-y-2 text-sm text-muted-foreground">
-              <li><Link href="/gitconfig-generate" className="hover:text-primary transition-colors">Generator</Link></li>
-              <li><a href="#" className="hover:text-primary transition-colors">Templates</a></li>
-              <li><a href="#" className="hover:text-primary transition-colors">API</a></li>
-              <li><a href="#" className="hover:text-primary transition-colors">CLI</a></li>
-            </ul>
-          </div>
-
-          <div>
-            <h4 className="font-semibold mb-4">Resources</h4>
-            <ul className="space-y-2 text-sm text-muted-foreground">
-              <li><a href="#" className="hover:text-primary transition-colors">Documentation</a></li>
-              <li><a href="#" className="hover:text-primary transition-colors">Blog</a></li>
-              <li><a href="#" className="hover:text-primary transition-colors">Changelog</a></li>
-              <li><a href="#" className="hover:text-primary transition-colors">Community</a></li>
-            </ul>
-          </div>
-
-          <div>
-            <h4 className="font-semibold mb-4">Legal</h4>
-            <ul className="space-y-2 text-sm text-muted-foreground">
-              <li><a href="#" className="hover:text-primary transition-colors">Privacy Policy</a></li>
-              <li><a href="#" className="hover:text-primary transition-colors">Terms of Service</a></li>
-              <li><a href="#" className="hover:text-primary transition-colors">Cookie Policy</a></li>
-              <li><a href="#" className="hover:text-primary transition-colors">License</a></li>
-            </ul>
-          </div>
-        </div>
-        
-        <div className="pt-8 border-t border-border/40 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-sm text-muted-foreground">
-            © {new Date().getFullYear()} GitConfig Pro. Open Source Software.
-          </p>
-          <div className="flex items-center gap-4">
-            <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="p-2 rounded-full hover:bg-secondary transition-colors text-muted-foreground hover:text-foreground">
-              <Github className="w-5 h-5" />
-            </a>
-            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="p-2 rounded-full hover:bg-secondary transition-colors text-muted-foreground hover:text-foreground">
-              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path>
-              </svg>
-            </a>
-          </div>
-        </div>
-      </div>
-    </footer>
-  );
-}

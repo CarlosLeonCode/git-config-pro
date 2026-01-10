@@ -3,6 +3,8 @@ import Editor from '@monaco-editor/react';
 import { FileType, FILE_NAMES, FILE_DESCRIPTIONS } from '@/lib/templates/types';
 import { useConfigStore } from '@/store/configStore';
 import { FileCode, FileText, Settings, Box, Scale, Code2 } from 'lucide-react';
+import { MotionButton } from './ui/MotionButton';
+import { cn } from '@/lib/utils';
 
 const TAB_ICONS: Record<FileType, React.ReactNode> = {
   gitignore: <FileCode className="w-4 h-4" />,
@@ -50,18 +52,21 @@ export function PreviewPanel() {
 
   return (
     <div className="glass rounded-2xl h-full flex flex-col overflow-hidden">
-      {/* Tabs */}
-      <div className="flex items-center border-b border-border/50 bg-card/30 overflow-x-auto scrollbar-thin">
+      {/* Minimal Tabs */}
+      <div className="flex items-center gap-1 p-1.5 border-b border-border/20 bg-background/50 overflow-x-auto scrollbar-none">
         {availableTabs.map((type) => (
           <button
             key={type}
             onClick={() => setActiveTab(type)}
-            className={`tab-button flex items-center gap-2 whitespace-nowrap ${
-              activeTab === type ? 'active' : ''
-            }`}
+            className={cn(
+              "flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-medium transition-all whitespace-nowrap",
+              activeTab === type 
+                ? 'bg-foreground/5 text-foreground shadow-sm' 
+                : 'text-muted-foreground hover:text-foreground hover:bg-foreground/[0.02]'
+            )}
           >
             {TAB_ICONS[type]}
-            <span className="font-medium">{FILE_NAMES[type]}</span>
+            {FILE_NAMES[type]}
           </button>
         ))}
       </div>

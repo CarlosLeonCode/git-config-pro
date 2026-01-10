@@ -1,0 +1,70 @@
+import { Github } from "lucide-react";
+
+export default function Footer() {
+  return (
+    <footer className="relative z-10 border-t border-border/40 bg-background/50 backdrop-blur-xl">
+      <div className="container mx-auto px-4 py-12">
+        <div className="flex flex-col justify-center items-center gap-8 mb-8">
+          <div className="flex items-center gap-2">
+            <div className="bg-primary/10 p-2 rounded-lg border border-primary/20">
+              <img
+                src="/icon.png"
+                alt="gitconfig pro icon"
+                className="rounded-full shadow-sm"
+                width={24}
+                height={24}
+              />
+            </div>
+            <span className="font-bold text-lg tracking-tight">
+              GitConfig Pro
+            </span>
+          </div>
+          <p className="text-sm text-muted-foreground leading-relaxed text-center">
+            The ultimate configuration orchestrator for modern developers.
+            <br />
+            Built with ❤️ for{" "}
+            <a
+              href="https://github.com/CarlosLeonCode"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              CarlosLeonCode
+            </a>
+            .
+          </p>
+        </div>
+
+        <div className="pt-8 border-t border-border/40 flex flex-col md:flex-row items-center justify-between gap-4">
+          <p className="text-sm text-muted-foreground">
+            © {new Date().getFullYear()} GitConfig Pro. Open Source Software.
+          </p>
+          <div className="flex items-center gap-4">
+            <a
+              href="https://github.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-2 rounded-full hover:bg-secondary transition-colors text-muted-foreground hover:text-foreground"
+            >
+              <Github className="w-5 h-5" />
+            </a>
+            <a
+              href="https://twitter.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-2 rounded-full hover:bg-secondary transition-colors text-muted-foreground hover:text-foreground"
+            >
+              <svg
+                className="w-5 h-5"
+                fill="currentColor"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+}

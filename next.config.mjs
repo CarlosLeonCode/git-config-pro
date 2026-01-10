@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  trailingSlash: true,
   poweredByHeader: false, // Security: Remove X-Powered-By header
   async headers() {
     return [

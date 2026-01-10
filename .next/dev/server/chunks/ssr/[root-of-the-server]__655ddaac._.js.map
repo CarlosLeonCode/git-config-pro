@@ -1,6 +1,0 @@
-{
-  "version": 3,
-  "sources": [],
-  "sections": [
-    {"offset": {"line": 22, "column": 0}, "map": {"version":3,"sources":["file:///Users/carlosleoncodepro/Dev/config-master-pro/src/app/not-found.tsx"],"sourcesContent":["\"use client\";\n\nimport Link from 'next/link';\nimport { usePathname } from 'next/navigation';\nimport { useEffect } from 'react';\n\nexport default function NotFound() {\n  const pathname = usePathname();\n\n  useEffect(() => {\n    console.error(\"404 Error: User attempted to access non-existent route:\", pathname);\n  }, [pathname]);\n\n  return (\n    <div className=\"flex min-h-screen items-center justify-center bg-muted\">\n      <div className=\"text-center\">\n        <h1 className=\"mb-4 text-4xl font-bold\">404</h1>\n        <p className=\"mb-4 text-xl text-muted-foreground\">Oops! Page not found</p>\n        <Link href=\"/\" className=\"text-primary underline hover:text-primary/90\">\n          Return to Home\n        </Link>\n      </div>\n    </div>\n  );\n}\n"],"names":[],"mappings":";;;;;AAEA;AACA;AACA;AAJA;;;;;AAMe,SAAS;IACtB,MAAM,WAAW,IAAA,iJAAW;IAE5B,IAAA,kNAAS,EAAC;QACR,QAAQ,KAAK,CAAC,2DAA2D;IAC3E,GAAG;QAAC;KAAS;IAEb,qBACE,8OAAC;QAAI,WAAU;kBACb,cAAA,8OAAC;YAAI,WAAU;;8BACb,8OAAC;oBAAG,WAAU;8BAA0B;;;;;;8BACxC,8OAAC;oBAAE,WAAU;8BAAqC;;;;;;8BAClD,8OAAC,uKAAI;oBAAC,MAAK;oBAAI,WAAU;8BAA+C;;;;;;;;;;;;;;;;;AAMhF"}}]
-}
