@@ -1,4 +1,11 @@
-# GitConfig Pro
+<div align="center">
+  
+# Git Config Pro
+  
+<img width="400" height="400" alt="hp-open-api" src="https://github.com/user-attachments/assets/a3c93e94-8c01-4424-9857-6afb10c937e7" />  
+</div>
+
+<br /> 
 
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 ![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)
@@ -6,7 +13,7 @@
 ![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=flat&logo=typescript&logoColor=white)
 ![Tailwind CSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=flat&logo=tailwind-css&logoColor=white)
 
-**GitConfig Pro** is the ultimate configuration orchestrator for modern developers. It intelligently generates battle-tested boilerplate configurations for `.gitignore`, `.gitattributes`, `.editorconfig`, `.dockerignore`, and more—instantly tailored to your specific project stack.
+**GitC onfig Pro** is the ultimate configuration orchestrator for modern developers. It intelligently generates battle-tested boilerplate configurations for `.gitignore`, `.gitattributes`, `.editorconfig`, `.dockerignore`, and more—instantly tailored to your specific project stack.
 
 ## 🚀 Features
 
