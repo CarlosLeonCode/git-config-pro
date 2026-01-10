@@ -51,12 +51,12 @@ export function PreviewPanel() {
   return (
     <div className="glass rounded-2xl h-full flex flex-col overflow-hidden">
       {/* Tabs */}
-      <div className="flex items-center border-b border-border/50 bg-card/30">
+      <div className="flex items-center border-b border-border/50 bg-card/30 overflow-x-auto scrollbar-thin">
         {availableTabs.map((type) => (
           <button
             key={type}
             onClick={() => setActiveTab(type)}
-            className={`tab-button flex items-center gap-2 ${
+            className={`tab-button flex items-center gap-2 whitespace-nowrap ${
               activeTab === type ? 'active' : ''
             }`}
           >

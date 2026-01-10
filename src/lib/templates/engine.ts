@@ -1,5 +1,5 @@
 import { FileType, GeneratedFile, FILE_NAMES } from './types';
-import { technologies, getTechnologyById } from './technologies';
+import { getTechnologyById } from './technologies';
 
 interface MergeResult {
   content: string;
@@ -61,20 +61,20 @@ export function mergeTemplates(selectedIds: string[], fileType: FileType): Merge
 
   for (const tech of selectedTechnologies) {
     const fileContent = tech.files[fileType];
-    
+
     if (fileContent && fileContent.length > 0) {
       sections.push(tech.name);
-      
+
       // Add section header
       content += `# ${tech.icon} ${tech.name}\n`;
-      
+
       // Process lines and avoid duplicates
       for (const line of fileContent) {
         // Skip empty lines at the start of a section
         if (line === '' && content.endsWith(`# ${tech.icon} ${tech.name}\n`)) {
           continue;
         }
-        
+
         // Check for duplicates (ignoring comments and empty lines)
         const trimmedLine = line.trim();
         if (trimmedLine && !trimmedLine.startsWith('#')) {
@@ -83,10 +83,10 @@ export function mergeTemplates(selectedIds: string[], fileType: FileType): Merge
           }
           allLines.add(trimmedLine);
         }
-        
+
         content += line + '\n';
       }
-      
+
       content += SECTION_DIVIDER;
     }
   }
@@ -105,7 +105,7 @@ export function generateAllFiles(selectedIds: string[]): GeneratedFile[] {
 
   for (const fileType of fileTypes) {
     const { content } = mergeTemplates(selectedIds, fileType);
-    
+
     // Only add file if it has content beyond the header
     const headerLength = HEADER_TEMPLATES[fileType].length;
     if (content.length > headerLength + 50) {
@@ -124,7 +124,7 @@ export function detectTechnologiesFromPackageJson(packageJson: string): string[]
   try {
     const pkg = JSON.parse(packageJson);
     const detected: Set<string> = new Set();
-    
+
     const allDeps = {
       ...pkg.dependencies,
       ...pkg.devDependencies,

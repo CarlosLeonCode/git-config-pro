@@ -6,6 +6,7 @@ import { TechnologyBadges } from './TechnologyBadges';
 import { PreviewPanel } from './PreviewPanel';
 import { ActionButtons } from './ActionButtons';
 import { useConfigStore } from '@/store/configStore';
+import { ThemeToggle } from './ThemeToggle';
 
 export function ConfigGenerator() {
   const { setCommandOpen, selectedTechnologies } = useConfigStore();
@@ -33,6 +34,10 @@ export function ConfigGenerator() {
         <div className="absolute top-0 inset-x-0 h-32 bg-gradient-to-b from-background to-transparent" />
       </div>
 
+      <div className="absolute top-4 right-4 z-50">
+        <ThemeToggle />
+      </div>
+
       <CommandPalette />
 
       <div className="relative z-10 container mx-auto px-4 py-12 max-w-7xl">
@@ -53,7 +58,7 @@ export function ConfigGenerator() {
             <div className="icon-container w-14 h-14">
               <FileCode className="w-7 h-7 text-primary-foreground" />
             </div>
-            <h1 className="text-5xl font-bold tracking-tight">
+            <h1 className="text-4xl md:text-5xl font-bold tracking-tight">
               <span className="gradient-text">GitConfig</span>
               <span className="text-foreground"> Pro</span>
             </h1>
@@ -147,7 +152,7 @@ export function ConfigGenerator() {
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.3 }}
-            className="h-[600px]"
+            className="h-[500px] lg:h-[600px]"
           >
             <PreviewPanel />
           </motion.div>

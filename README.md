@@ -1,73 +1,112 @@
-# Welcome to your Lovable project
+# GitConfig Pro
 
-## Project info
+![License](https://img.shields.io/badge/license-MIT-blue.svg)
+![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)
+![React](https://img.shields.io/badge/react-%2320232a.svg?style=flat&logo=react&logoColor=%2361DAFB)
+![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=flat&logo=typescript&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=flat&logo=tailwind-css&logoColor=white)
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+**GitConfig Pro** is the ultimate configuration orchestrator for modern developers. It intelligently generates battle-tested boilerplate configurations for `.gitignore`, `.gitattributes`, `.editorconfig`, `.dockerignore`, and more—instantly tailored to your specific project stack.
 
-## How can I edit this code?
+## 🚀 Features
 
-There are several ways of editing your application.
+- **Smart Detection**: Automatically detects your project dependencies (via `package.json` upload) and recommends the perfect settings.
+- **Multi-File Generation**: Create multiple config files simultaneously.
+- **20+ Supported Technologies**: From Node.js and Python to Ruby on Rails and Go.
+- **Modern UI**: Built with React, Tailwind CSS, and Framer Motion for a premium user experience.
+- **Dark/Light Mode**: Fully themeable interface.
 
-**Use Lovable**
+## 🛠️ Technology Stack
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
+- **Frontend Framework**: [React](https://reactjs.org/) + [Vite](https://vitejs.dev/)
+- **Language**: [TypeScript](https://www.typescriptlang.org/)
+- **Styling**: [Tailwind CSS](https://tailwindcss.com/)
+- **UI Components**: [Shadcn UI](https://ui.shadcn.com/)
+- **State Management**: [Zustand](https://github.com/pmndrs/zustand)
+- **Animations**: [Framer Motion](https://www.framer.com/motion/)
+- **Icons**: [Lucide React](https://lucide.dev/)
 
-Changes made via Lovable will be committed automatically to this repo.
+## 📂 Project Structure
 
-**Use your preferred IDE**
+Here is an overview of the project's file structure to help you get oriented:
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+```
+/
+├── public/              # Static assets (images, favicons)
+├── src/
+│   ├── components/      # React components
+│   │   ├── ui/          # Reusable UI components (buttons, dialogs, etc.)
+│   │   ├── ConfigGenerator.tsx  # Main application logic and layout
+│   │   ├── PreviewPanel.tsx     # Monaco editor preview
+│   │   ├── SmartDetector.tsx    # Drag-and-drop file detection logic
+│   │   └── ...
+│   ├── lib/
+│   │   ├── templates/   # Core logic for configuration generation
+│   │   │   ├── engine.ts       # Template merging and processing engine
+│   │   │   ├── technologies.ts # Database of supported technologies & templates
+│   │   │   └── types.ts        # TypeScript interfaces for templates
+│   │   └── utils.ts     # Utility functions
+│   ├── pages/           # Application pages (Routing)
+│   │   ├── Index.tsx    # Landing page
+│   │   └── Generator.tsx # App interface
+│   ├── store/           # Global state management
+│   │   └── configStore.ts # Zustand store for selected techs and files
+│   ├── App.tsx          # Main App component & Routing setup
+│   └── index.css        # Global styles & Tailwind directives
+├── index.html           # HTML entry point
+├── package.json         # Project dependencies and scripts
+└── ...
 ```
 
-**Edit a file directly in GitHub**
+### Key Files Explained
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+- **`src/lib/templates/technologies.ts`**: This is the heart of the application. It contains the mock database of all supported technologies (Node, Python, Ruby, etc.) and their defining configuration rules (what goes into `.gitignore` or `.editorconfig` for each).
+- **`src/lib/templates/engine.ts`**: Contains the logic that takes a list of selected technologies and "merges" their templates into a single, cohesive file output without duplicates.
+- **`src/store/configStore.ts`**: Manages the application state, such as which technologies are currently selected by the user and the content of the generated files.
 
-**Use GitHub Codespaces**
+## ⚡ How to Add New Features
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+We love contributions! One of the easiest and most impactful ways to contribute is by adding support for new technologies.
 
-## What technologies are used for this project?
+### Adding a New Technology Template
 
-This project is built with:
+1.  **Open `src/lib/templates/technologies.ts`**.
+2.  Find the `technologies` array.
+3.  **Add a new object** following the `TechnologyTemplate` interface.
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+**Example:**
 
-## How can I deploy this project?
+```typescript
+{
+  id: 'my-new-tech',
+  name: 'My New Tech',
+  icon: '🚀', // Use an emoji or React node
+  category: 'framework', // 'language' | 'framework' | 'tool' | 'database'
+  description: 'A brief description',
+  files: {
+    gitignore: [
+        '# Dependencies',
+        '/vendor/',
+        '*.log'
+    ],
+    dockerignore: [
+        '/vendor/',
+        'Dockerfile'
+    ]
+    // You can also add 'editorconfig', 'gitattributes', etc.
+  }
+}
+```
 
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
+4.  **Save the file**. The application will automatically pick up the new technology, add it to the search index, and include its rules when generated!
 
-## Can I connect a custom domain to my Lovable project?
+## 🤝 Contributing
 
-Yes, you can!
+This project is open source and we welcome contributions!
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+1.  Read our [Code of Conduct](CODE_OF_CONDUCT.md).
+2.  See the [Contributing Guide](CONTRIBUTING.md) for details on how to get started, report bugs, or submit pull requests.
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+## 📜 License
+
+This project is licensed under the [MIT License](LICENSE).

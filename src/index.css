@@ -4,6 +4,65 @@
 
 @layer base {
   :root {
+    /* Premium Light Theme - Clean & Technical */
+    --background: 0 0% 100%;
+    --foreground: 240 10% 3.9%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 3.9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 3.9%;
+
+    --primary: 217 91% 60%;
+    --primary-foreground: 0 0% 98%;
+
+    --secondary: 240 4.8% 95.9%;
+    --secondary-foreground: 240 5.9% 10%;
+
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
+
+    --accent: 217 91% 60%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 240 5.9% 90%;
+    --input: 240 5.9% 90%;
+    --ring: 217 91% 60%;
+
+    --radius: 0.625rem;
+
+    /* Premium Glass Design Tokens - Light */
+    --glass-bg: 0 0% 100% / 0.7;
+    --glass-bg-solid: 0 0% 100%;
+    --glass-border: 240 5.9% 90% / 0.6;
+    --glass-border-hover: 217 91% 60% / 0.3;
+    
+    /* Gradient System */
+    --gradient-start: 217 91% 60%;
+    --gradient-mid: 250 85% 65%;
+    --gradient-end: 280 85% 60%;
+    
+    /* Glow Effects */
+    --glow-primary: 217 91% 60%;
+    --glow-secondary: 265 89% 66%;
+    --glow-ambient: 250 85% 65%;
+
+    /* Sidebar */
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217 91% 100%;
+  }
+
+  .dark {
     /* Premium Dark Theme - Inspired by Linear/Vercel */
     --background: 225 25% 4%;
     --foreground: 0 0% 98%;
@@ -33,23 +92,11 @@
     --input: 225 20% 14%;
     --ring: 217 91% 60%;
 
-    --radius: 0.625rem;
-
-    /* Premium Glass Design Tokens */
+    /* Premium Glass Design Tokens - Dark */
     --glass-bg: 225 25% 8% / 0.6;
     --glass-bg-solid: 225 25% 8%;
     --glass-border: 225 20% 20% / 0.5;
     --glass-border-hover: 225 20% 30% / 0.6;
-    
-    /* Gradient System */
-    --gradient-start: 217 91% 60%;
-    --gradient-mid: 250 85% 65%;
-    --gradient-end: 280 85% 60%;
-    
-    /* Glow Effects */
-    --glow-primary: 217 91% 60%;
-    --glow-secondary: 265 89% 66%;
-    --glow-ambient: 250 85% 65%;
 
     /* Sidebar */
     --sidebar-background: 225 25% 5%;
@@ -60,11 +107,6 @@
     --sidebar-accent-foreground: 0 0% 98%;
     --sidebar-border: 225 20% 14%;
     --sidebar-ring: 217 91% 60%;
-  }
-
-  .dark {
-    --background: 225 25% 4%;
-    --foreground: 0 0% 98%;
   }
 }
 
