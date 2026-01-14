@@ -2,7 +2,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Editor from '@monaco-editor/react';
 import { FileType, FILE_NAMES, FILE_DESCRIPTIONS } from '@/lib/templates/types';
 import { useConfigStore } from '@/store/configStore';
-import { FileCode, FileText, Settings, Box, Scale, Code2 } from 'lucide-react';
+import { FileCode, FileText, Settings, Box, Scale, Code2, Sparkles, AlertCircle } from 'lucide-react';
 import { MotionButton } from './ui/MotionButton';
 import { cn } from '@/lib/utils';
 
@@ -11,6 +11,8 @@ const TAB_ICONS: Record<FileType, React.ReactNode> = {
   gitattributes: <FileText className="w-4 h-4" />,
   editorconfig: <Settings className="w-4 h-4" />,
   dockerignore: <Box className="w-4 h-4" />,
+  prettierignore: <Sparkles className="w-4 h-4" />,
+  eslintignore: <AlertCircle className="w-4 h-4" />,
   license: <Scale className="w-4 h-4" />,
 };
 

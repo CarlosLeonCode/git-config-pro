@@ -1,4 +1,4 @@
-export type FileType = 'gitignore' | 'gitattributes' | 'editorconfig' | 'dockerignore' | 'license';
+export type FileType = 'gitignore' | 'gitattributes' | 'editorconfig' | 'dockerignore' | 'prettierignore' | 'eslintignore' | 'license';
 
 export interface TechnologyTemplate {
   id: string;
@@ -26,6 +26,8 @@ export const FILE_NAMES: Record<FileType, string> = {
   gitattributes: '.gitattributes',
   editorconfig: '.editorconfig',
   dockerignore: '.dockerignore',
+  prettierignore: '.prettierignore',
+  eslintignore: '.eslintignore',
   license: 'LICENSE',
 };
 
@@ -34,5 +36,7 @@ export const FILE_DESCRIPTIONS: Record<FileType, string> = {
   gitattributes: 'Path-specific Git settings',
   editorconfig: 'Editor configuration for consistency',
   dockerignore: 'Files to exclude from Docker builds',
+  prettierignore: 'Files to exclude from Prettier formatting',
+  eslintignore: 'Files to exclude from ESLint analysis',
   license: 'Open source license',
 };
