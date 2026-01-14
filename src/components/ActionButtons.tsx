@@ -1,11 +1,9 @@
 import { useState } from 'react';
-import { motion } from 'framer-motion';
-import { Copy, Download, Terminal, Check, Sparkles } from 'lucide-react';
+import { Copy, Download, Check } from 'lucide-react';
 import JSZip from 'jszip';
 import { saveAs } from 'file-saver';
 import { useConfigStore } from '@/store/configStore';
 import { generateCurlCommand } from '@/lib/templates/engine';
-import { MotionButton } from './ui/MotionButton';
 
 export function ActionButtons() {
   const [copiedState, setCopiedState] = useState<'content' | 'curl' | null>(null);

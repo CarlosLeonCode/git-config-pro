@@ -1,13 +1,15 @@
-import { motion } from 'framer-motion';
-import { Search, Github, Zap, FileCode, Layers, Sparkles, Star } from 'lucide-react';
-import { CommandPalette } from './CommandPalette';
-import { SmartDetector } from './SmartDetector';
-import { TechnologyBadges } from './TechnologyBadges';
-import { PreviewPanel } from './PreviewPanel';
-import { ActionButtons } from './ActionButtons';
-import { useConfigStore } from '@/store/configStore';
-import { ThemeToggle } from './ThemeToggle';
-import { MotionButton } from './ui/MotionButton';
+import { motion } from "framer-motion";
+import {
+  Search,
+  Github,
+  Star,
+} from "lucide-react";
+import { CommandPalette } from "./CommandPalette";
+import { SmartDetector } from "./SmartDetector";
+import { TechnologyBadges } from "./TechnologyBadges";
+import { PreviewPanel } from "./PreviewPanel";
+import { ActionButtons } from "./ActionButtons";
+import { useConfigStore } from "@/store/configStore";
 
 export function ConfigGenerator() {
   const { setCommandOpen, selectedTechnologies } = useConfigStore();
@@ -25,28 +27,33 @@ export function ConfigGenerator() {
           className="text-center mb-16"
         >
           {/* Logo */}
-          <motion.div 
+          <motion.div
             className="flex items-center justify-center gap-3 mb-4"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
           >
-            <img src="/icon.png" alt="gitconfig pro icon" className='rounded-full' width={24} height={24}/>
+            <img
+              src="/icon.png"
+              alt="gitconfig pro icon"
+              className="rounded-full"
+              width={24}
+              height={24}
+            />
             <h1 className="text-2xl font-bold tracking-tight text-foreground">
               GitConfig Pro
             </h1>
           </motion.div>
 
           {/* Tagline */}
-          <motion.p 
+          <motion.p
             className="text-muted-foreground text-sm max-w-lg mx-auto leading-relaxed"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.1 }}
           >
-            Generate standardized Git configuration files with intelligent detection.
+            Generate standardized Git configuration files with intelligent
+            detection.
           </motion.p>
-          
-
         </motion.header>
 
         {/* Minimal Search Trigger */}
@@ -58,7 +65,7 @@ export function ConfigGenerator() {
         >
           <button
             onClick={() => setCommandOpen(true)}
-            className="w-full max-w-2xl mx-auto flex items-center gap-4 px-5 py-4 rounded-2xl border border-border/40 bg-card/30 hover:bg-card/50 transition-all group"
+            className="w-full max-w-2xl mx-auto flex items-center gap-4 px-5 py-4 rounded-2xl border border-border/40 bg-card/30 transition-all group dark:bg-gray-800/30 bg-white/70"
           >
             <Search className="w-5 h-5 text-muted-foreground group-hover:text-foreground transition-colors" />
             <span className="flex-1 text-left text-muted-foreground">
@@ -76,7 +83,7 @@ export function ConfigGenerator() {
           {/* Left Panel */}
           <div className="space-y-6">
             <SmartDetector />
-            
+
             {selectedTechnologies.length > 0 && (
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
@@ -116,7 +123,7 @@ export function ConfigGenerator() {
           className="mt-20 text-center"
         >
           <a
-            href="https://github.com"
+            href="https://github.com/CarlosLeonCode/git-config-pro"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2.5 text-muted-foreground hover:text-foreground transition-colors duration-300 group"
