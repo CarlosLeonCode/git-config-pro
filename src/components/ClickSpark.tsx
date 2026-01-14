@@ -1,4 +1,4 @@
-import { useRef, useEffect, useCallback } from 'react';
+import { useRef, useEffect, useCallback } from "react";
 
 interface ClickSparkProps {
   children?: React.ReactNode;
@@ -7,22 +7,24 @@ interface ClickSparkProps {
   sparkRadius?: number;
   sparkCount?: number;
   duration?: number;
-  easing?: 'linear' | 'ease-in' | 'ease-out' | 'ease-in-out';
+  easing?: "linear" | "ease-in" | "ease-out" | "ease-in-out";
   extraScale?: number;
 }
 
 const ClickSpark = ({
-  sparkColor = '#fff',
+  sparkColor = "#fff",
   sparkSize = 10,
   sparkRadius = 15,
   sparkCount = 8,
   duration = 400,
-  easing = 'ease-out',
+  easing = "ease-out",
   extraScale = 1.0,
-  children
+  children,
 }: ClickSparkProps) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const sparksRef = useRef<{ x: number; y: number; angle: number; startTime: number }[]>([]);
+  const sparksRef = useRef<
+    { x: number; y: number; angle: number; startTime: number }[]
+  >([]);
   const startTimeRef = useRef<number | null>(null);
 
   useEffect(() => {
@@ -33,20 +35,20 @@ const ClickSpark = ({
     const resizeCanvas = () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
-      canvas.style.width = '100vw';
-      canvas.style.height = '100vh';
-      canvas.style.position = 'fixed';
-      canvas.style.top = '0';
-      canvas.style.left = '0';
-      canvas.style.pointerEvents = 'none';
-      canvas.style.zIndex = '9999';
+      canvas.style.width = "100vw";
+      canvas.style.height = "100vh";
+      canvas.style.position = "fixed";
+      canvas.style.top = "0";
+      canvas.style.left = "0";
+      canvas.style.pointerEvents = "none";
+      canvas.style.zIndex = "9999";
     };
 
-    window.addEventListener('resize', resizeCanvas);
+    window.addEventListener("resize", resizeCanvas);
     resizeCanvas(); // Init
 
     return () => {
-      window.removeEventListener('resize', resizeCanvas);
+      window.removeEventListener("resize", resizeCanvas);
     };
   }, []);
 
@@ -54,11 +56,11 @@ const ClickSpark = ({
   const easeFunc = useCallback(
     (t: number) => {
       switch (easing) {
-        case 'linear':
+        case "linear":
           return t;
-        case 'ease-in':
+        case "ease-in":
           return t * t;
-        case 'ease-in-out':
+        case "ease-in-out":
           return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
         default: // ease-out
           return t * (2 - t);
@@ -70,7 +72,7 @@ const ClickSpark = ({
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
     let animationId: number;
@@ -79,7 +81,7 @@ const ClickSpark = ({
       if (!startTimeRef.current) {
         startTimeRef.current = timestamp;
       }
-      
+
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
       sparksRef.current = sparksRef.current.filter((spark) => {
@@ -117,32 +119,43 @@ const ClickSpark = ({
     return () => {
       cancelAnimationFrame(animationId);
     };
-  }, [sparkColor, sparkSize, sparkRadius, sparkCount, duration, easeFunc, extraScale]);
+  }, [
+    sparkColor,
+    sparkSize,
+    sparkRadius,
+    sparkCount,
+    duration,
+    easeFunc,
+    extraScale,
+  ]);
 
   // Global click listener to catch ALL clicks
-  const handleClick = useCallback((e: MouseEvent) => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
+  const handleClick = useCallback(
+    (e: MouseEvent) => {
+      const canvas = canvasRef.current;
+      if (!canvas) return;
 
-    // Use client coordinates directly since canvas is fixed
-    const x = e.clientX;
-    const y = e.clientY;
+      // Use client coordinates directly since canvas is fixed
+      const x = e.clientX;
+      const y = e.clientY;
 
-    const now = performance.now();
-    const newSparks = Array.from({ length: sparkCount }, (_, i) => ({
-      x,
-      y,
-      angle: (2 * Math.PI * i) / sparkCount,
-      startTime: now
-    }));
+      const now = performance.now();
+      const newSparks = Array.from({ length: sparkCount }, (_, i) => ({
+        x,
+        y,
+        angle: (2 * Math.PI * i) / sparkCount,
+        startTime: now,
+      }));
 
-    sparksRef.current.push(...newSparks);
-  }, [sparkCount]);
+      sparksRef.current.push(...newSparks);
+    },
+    [sparkCount]
+  );
 
   useEffect(() => {
     // Capture phase true ensuring we catch it before anyone stops propagation (though rarely needed on window)
-    window.addEventListener('click', handleClick, true);
-    return () => window.removeEventListener('click', handleClick, true);
+    window.addEventListener("click", handleClick, true);
+    return () => window.removeEventListener("click", handleClick, true);
   }, [handleClick]);
 
   return (

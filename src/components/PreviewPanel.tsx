@@ -1,10 +1,18 @@
-import { motion, AnimatePresence } from 'framer-motion';
-import Editor from '@monaco-editor/react';
-import { FileType, FILE_NAMES, FILE_DESCRIPTIONS } from '@/lib/templates/types';
-import { useConfigStore } from '@/store/configStore';
-import { FileCode, FileText, Settings, Box, Scale, Code2, Sparkles, AlertCircle } from 'lucide-react';
-import { MotionButton } from './ui/MotionButton';
-import { cn } from '@/lib/utils';
+import { motion, AnimatePresence } from "framer-motion";
+import Editor from "@monaco-editor/react";
+import { FileType, FILE_NAMES, FILE_DESCRIPTIONS } from "@/lib/templates/types";
+import { useConfigStore } from "@/store/configStore";
+import {
+  FileCode,
+  FileText,
+  Settings,
+  Box,
+  Scale,
+  Code2,
+  Sparkles,
+  AlertCircle,
+} from "lucide-react";
+import { cn } from "@/lib/utils";
 
 const TAB_ICONS: Record<FileType, React.ReactNode> = {
   gitignore: <FileCode className="w-4 h-4" />,
@@ -17,8 +25,9 @@ const TAB_ICONS: Record<FileType, React.ReactNode> = {
 };
 
 export function PreviewPanel() {
-  const { generatedFiles, activeTab, setActiveTab, selectedTechnologies } = useConfigStore();
-  
+  const { generatedFiles, activeTab, setActiveTab, selectedTechnologies } =
+    useConfigStore();
+
   const availableTabs = generatedFiles.map((f) => f.type);
   const currentFile = generatedFiles.find((f) => f.type === activeTab);
 
@@ -42,10 +51,9 @@ export function PreviewPanel() {
             No technologies selected
           </h3>
           <p className="text-muted-foreground leading-relaxed">
-            Press{' '}
-            <kbd className="mx-1">⌘</kbd>
-            <kbd className="mr-1">K</kbd>
-            {' '}to search and add technologies, or drag a package.json file to auto-detect.
+            Press <kbd className="mx-1">⌘</kbd>
+            <kbd className="mr-1">K</kbd> to search and add technologies, or
+            drag a package.json file to auto-detect.
           </p>
         </motion.div>
       </div>
@@ -62,9 +70,9 @@ export function PreviewPanel() {
             onClick={() => setActiveTab(type)}
             className={cn(
               "flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-medium transition-all whitespace-nowrap",
-              activeTab === type 
-                ? 'bg-foreground/5 text-foreground shadow-sm' 
-                : 'text-muted-foreground hover:text-foreground hover:bg-foreground/[0.02]'
+              activeTab === type
+                ? "bg-foreground/5 text-foreground shadow-sm"
+                : "text-muted-foreground hover:text-foreground hover:bg-foreground/[0.02]"
             )}
           >
             {TAB_ICONS[type]}
@@ -92,8 +100,8 @@ export function PreviewPanel() {
           >
             <Editor
               height="100%"
-              language={activeTab === 'editorconfig' ? 'ini' : 'shell'}
-              value={currentFile?.content || '# No content generated'}
+              language={activeTab === "editorconfig" ? "ini" : "shell"}
+              value={currentFile?.content || "# No content generated"}
               theme="vs-dark"
               options={{
                 readOnly: true,
@@ -101,18 +109,18 @@ export function PreviewPanel() {
                 fontSize: 13,
                 fontFamily: "'Geist Mono', 'JetBrains Mono', monospace",
                 fontLigatures: true,
-                lineNumbers: 'on',
+                lineNumbers: "on",
                 scrollBeyondLastLine: false,
-                wordWrap: 'on',
+                wordWrap: "on",
                 padding: { top: 16, bottom: 16 },
-                renderLineHighlight: 'none',
+                renderLineHighlight: "none",
                 overviewRulerLanes: 0,
                 hideCursorInOverviewRuler: true,
                 lineHeight: 1.6,
                 letterSpacing: 0.3,
                 scrollbar: {
-                  vertical: 'visible',
-                  horizontal: 'hidden',
+                  vertical: "visible",
+                  horizontal: "hidden",
                   verticalScrollbarSize: 8,
                 },
               }}

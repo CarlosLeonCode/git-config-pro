@@ -1,11 +1,22 @@
 "use client";
 
-import { motion } from 'framer-motion';
-import Link from 'next/link';
-import { FileCode, Zap, Layers, Sparkles, ArrowRight, Github, Shield, Command, Heart, GitFork, Star } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import Navigation from '@/components/Navigation'
-import Footer from '@/components/Footer'
+import { motion } from "framer-motion";
+import Link from "next/link";
+import {
+  Zap,
+  Layers,
+  Sparkles,
+  ArrowRight,
+  Github,
+  Shield,
+  Heart,
+  GitFork,
+  Star,
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import Navigation from "@/components/Navigation";
+import Footer from "@/components/Footer";
+import FeatureCard from "@/components/ui/feature-card";
 
 export default function Index() {
   return (
@@ -31,12 +42,18 @@ export default function Index() {
           </h1>
 
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed text-balance">
-            Generate battle-tested boilerplate configurations for <span className="text-foreground font-medium">.gitignore</span>, <span className="text-foreground font-medium">.gitattributes</span>, and more. Instantly tailored to your stack.
+            Generate battle-tested boilerplate configurations for{" "}
+            <span className="text-foreground font-medium">.gitignore</span>,{" "}
+            <span className="text-foreground font-medium">.gitattributes</span>,
+            and more. Instantly tailored to your stack.
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
             <Link href="/gitconfig-generate">
-              <Button size="lg" className="h-12 px-8 text-base rounded-xl shadow-lg shadow-primary/20 hover:shadow-primary/40 transition-all duration-300">
+              <Button
+                size="lg"
+                className="h-12 px-8 text-base rounded-xl shadow-lg shadow-primary/20 hover:shadow-primary/40 transition-all duration-300"
+              >
                 Start Generating <ArrowRight className="ml-2 w-4 h-4" />
               </Button>
             </Link>
@@ -76,7 +93,8 @@ export default function Index() {
           className="mt-32 w-full max-w-6xl mx-auto px-4"
         >
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
-            Empowering the <span className="gradient-text">Open Source</span> Ecosystem
+            Empowering the <span className="gradient-text">Open Source</span>{" "}
+            Ecosystem
           </h2>
           <div className="grid md:grid-cols-2 gap-8">
             {/* Card 1: Community Driven */}
@@ -86,7 +104,9 @@ export default function Index() {
               </div>
               <h3 className="text-2xl font-bold mb-4">Community Driven</h3>
               <p className="text-muted-foreground mb-6 leading-relaxed">
-                GitConfig Pro is built by developers, for developers. We believe in the power of open collaboration to create tools that solve real-world problems.
+                GitConfig Pro is built by developers, for developers. We believe
+                in the power of open collaboration to create tools that solve
+                real-world problems.
               </p>
               <div className="flex items-center gap-4 text-sm font-medium">
                 <div className="flex items-center gap-2">
@@ -107,36 +127,20 @@ export default function Index() {
               </div>
               <h3 className="text-2xl font-bold mb-4">Contribute Code</h3>
               <p className="text-muted-foreground mb-6 leading-relaxed">
-                Found a bug? Want to add a new technology template? We welcome pull requests! Check out our contribution guidelines to get started.
+                Found a bug? Want to add a new technology template? We welcome
+                pull requests! Check out our contribution guidelines to get
+                started.
               </p>
-              <a href="https://github.com/CarlosLeonCode/git-config-pro/issues" target="_blank" rel="noopener noreferrer">
-                <Button variant="outline" className="w-full sm:w-auto gap-2">
-                  <Github className="w-4 h-4" />
-                  View Issues & PRs
-                </Button>
-              </a>
+              <Button variant="outline" className="w-full sm:w-auto gap-2">
+                <Github className="w-4 h-4" />
+                View Issues & PRs
+              </Button>
             </div>
           </div>
         </motion.div>
-
       </main>
 
       <Footer />
     </div>
   );
 }
-
-function FeatureCard({ icon, title, description }: { icon: React.ReactNode, title: string, description: string }) {
-  return (
-    <div className="glass p-6 rounded-2xl border border-white/5 bg-card/30 hover:bg-card/50 transition-all duration-300 hover:-translate-y-1 group">
-      <div className="w-12 h-12 rounded-xl bg-background/50 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 border border-border/50">
-        {icon}
-      </div>
-      <h3 className="text-xl font-semibold mb-2">{title}</h3>
-      <p className="text-muted-foreground leading-relaxed">
-        {description}
-      </p>
-    </div>
-  );
-}
-

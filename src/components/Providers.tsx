@@ -18,9 +18,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
           sparkCount={8}
           duration={400}
         >
-          <TooltipProvider>
-            {children}
-          </TooltipProvider>
+          <TooltipProvider>{children}</TooltipProvider>
         </ClickSpark>
       </QueryClientProvider>
     </ThemeProvider>
