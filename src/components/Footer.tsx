@@ -40,7 +40,7 @@ export default function Footer() {
           </p>
           <div className="flex items-center gap-4">
             <a
-              href="https://github.com"
+              href="https://github.com/CarlosLeonCode/git-config-pro"
               target="_blank"
               rel="noopener noreferrer"
               className="p-2 rounded-full hover:bg-secondary transition-colors text-muted-foreground hover:text-foreground"
