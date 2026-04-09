@@ -1,137 +1,81 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
-import {
-  Search,
-  Github,
-  Star,
-} from "lucide-react";
+import { Search, Star } from "lucide-react";
 import { CommandPalette } from "./CommandPalette";
 import { SmartDetector } from "./SmartDetector";
 import { TechnologyBadges } from "./TechnologyBadges";
 import { PreviewPanel } from "./PreviewPanel";
 import { ActionButtons } from "./ActionButtons";
+import { Sidebar } from "./layout/Sidebar";
 import { useConfigStore } from "@/store/configStore";
 
 export function ConfigGenerator() {
+  const [activeTool, setActiveTool] = useState<"generate" | "compare">("generate");
   const { setCommandOpen, selectedTechnologies } = useConfigStore();
 
   return (
-    <div className="min-h-screen. relative overflow-hidden py-16">
-      <CommandPalette />
+    <div className="flex h-screen w-full bg-background overflow-hidden">
+      <Sidebar activeTool={activeTool} onToolChange={setActiveTool} />
+      
+      <div className="flex-1 h-full relative p-6 flex flex-col overflow-hidden">
+        <CommandPalette />
 
-      <div className="relative z-10 container mx-auto px-4 py-12 max-w-7xl">
-        {/* Header */}
-        <motion.header
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-          className="text-center mb-16"
-        >
-          {/* Logo */}
-          <motion.div
-            className="flex items-center justify-center gap-3 mb-4"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-          >
-            <img
-              src="/icon.png"
-              alt="gitconfig pro icon"
-              className="rounded-full"
-              width={24}
-              height={24}
-            />
-            <h1 className="text-2xl font-bold tracking-tight text-foreground">
-              GitConfig Pro
-            </h1>
-          </motion.div>
-
-          {/* Tagline */}
-          <motion.p
-            className="text-muted-foreground text-sm max-w-lg mx-auto leading-relaxed"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.1 }}
-          >
-            Generate standardized Git configuration files with intelligent
-            detection.
-          </motion.p>
-        </motion.header>
-
-        {/* Minimal Search Trigger */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.98 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.4, delay: 0.2 }}
-          className="mb-12"
-        >
-          <button
-            onClick={() => setCommandOpen(true)}
-            className="w-full max-w-2xl mx-auto flex items-center gap-4 px-5 py-4 rounded-2xl border border-border/40 bg-card/30 transition-all group dark:bg-gray-800/30 bg-white/70"
-          >
-            <Search className="w-5 h-5 text-muted-foreground group-hover:text-foreground transition-colors" />
-            <span className="flex-1 text-left text-muted-foreground">
-              Search technologies...
-            </span>
-            <div className="flex items-center gap-1.5 opacity-20 text-xs">
-              <kbd className="bg-transparent border-none shadow-none">⌘</kbd>
-              <kbd className="bg-transparent border-none shadow-none">K</kbd>
-            </div>
-          </button>
-        </motion.div>
-
-        {/* Main Content */}
-        <div className="grid lg:grid-cols-[1fr_1.5fr] gap-8">
-          {/* Left Panel */}
-          <div className="space-y-6">
-            <SmartDetector />
-
-            {selectedTechnologies.length > 0 && (
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
+        {/* Main Content Area */}
+        <div className="flex-1 flex gap-6 overflow-hidden">
+          {/* Left Panel - Generator Controls */}
+          {activeTool === "generate" && (
+            <div className="w-[400px] shrink-0 flex flex-col gap-6 overflow-y-auto pr-2 scrollbar-thin">
+              <motion.header
+                initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="glass rounded-xl p-5"
+                transition={{ duration: 0.6 }}
+                className="mb-4 shrink-0"
               >
-                <h3 className="text-sm font-medium text-muted-foreground mb-4 flex items-center gap-2">
-                  <Star className="w-4 h-4 text-primary" />
-                  Selected Technologies
-                  <span className="ml-auto text-xs px-2 py-0.5 rounded-full bg-primary/10 text-primary">
-                    {selectedTechnologies.length}
-                  </span>
-                </h3>
-                <TechnologyBadges />
-              </motion.div>
-            )}
+                <h1 className="text-2xl font-bold tracking-tight text-foreground mb-3">
+                  GitConfig Pro
+                </h1>
+                <p className="text-muted-foreground text-sm leading-relaxed">
+                  Generate standardized Git configuration files with intelligent
+                  detection.
+                </p>
+              </motion.header>
 
-            <ActionButtons />
-          </div>
+              <button
+                onClick={() => setCommandOpen(true)}
+                className="w-full flex items-center gap-4 px-4 py-3 rounded-lg border border-border/40 bg-card/30 transition-all group"
+              >
+                <Search className="w-5 h-5 text-muted-foreground" />
+                <span className="flex-1 text-left text-muted-foreground">
+                  Search technologies...
+                </span>
+                <div className="flex items-center gap-1.5 opacity-20 text-xs">
+                  <kbd>⌘</kbd><kbd>K</kbd>
+                </div>
+              </button>
+              <SmartDetector />
 
-          {/* Right Panel - Preview */}
+              {selectedTechnologies.length > 0 && (
+                <div className="glass p-5 rounded-xl">
+                  <h3 className="text-sm font-medium text-muted-foreground mb-4 flex items-center gap-2">
+                    <Star className="w-4 h-4 text-primary" />
+                    Selected Technologies
+                  </h3>
+                  <TechnologyBadges />
+                </div>
+              )}
+
+              <ActionButtons />
+            </div>
+          )}
+
+          {/* Right Panel - Preview/Tool Content (Expands to fill) */}
           <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-            className="h-[500px] lg:h-[600px]"
+            layout
+            className="flex-1 h-full overflow-hidden"
           >
-            <PreviewPanel />
+            <PreviewPanel activeTool={activeTool} />
           </motion.div>
         </div>
-
-        {/* Footer */}
-        <motion.footer
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.6 }}
-          className="mt-20 text-center"
-        >
-          <a
-            href="https://github.com/CarlosLeonCode/git-config-pro"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2.5 text-muted-foreground hover:text-foreground transition-colors duration-300 group"
-          >
-            <Github className="w-4 h-4 group-hover:scale-110 transition-transform duration-300" />
-            <span className="text-sm font-medium">Open Source on GitHub</span>
-          </a>
-        </motion.footer>
       </div>
     </div>
   );
