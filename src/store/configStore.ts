@@ -7,7 +7,9 @@ interface ConfigStore {
   generatedFiles: GeneratedFile[];
   activeTab: FileType;
   isCommandOpen: boolean;
-  
+  customTemplates: Partial<Record<FileType, string>>;
+  uploadedConfigs: Partial<Record<FileType, string>>;
+
   // Actions
   addTechnology: (id: string) => void;
   removeTechnology: (id: string) => void;
@@ -17,6 +19,9 @@ interface ConfigStore {
   setActiveTab: (tab: FileType) => void;
   setCommandOpen: (open: boolean) => void;
   regenerateFiles: () => void;
+  updateCustomTemplate: (type: FileType, content: string) => void;
+  resetCustomTemplate: (type: FileType) => void;
+  setUploadedConfig: (type: FileType, content: string) => void;
 }
 
 export const useConfigStore = create<ConfigStore>((set, get) => ({
@@ -24,6 +29,8 @@ export const useConfigStore = create<ConfigStore>((set, get) => ({
   generatedFiles: [],
   activeTab: 'gitignore',
   isCommandOpen: false,
+  customTemplates: {},
+  uploadedConfigs: {},
 
   addTechnology: (id: string) => {
     const { selectedTechnologies } = get();
@@ -65,6 +72,7 @@ export const useConfigStore = create<ConfigStore>((set, get) => ({
     set({
       selectedTechnologies: [],
       generatedFiles: [],
+      customTemplates: {},
     });
   },
 
@@ -81,5 +89,30 @@ export const useConfigStore = create<ConfigStore>((set, get) => ({
     set({
       generatedFiles: generateAllFiles(selectedTechnologies),
     });
+  },
+
+  updateCustomTemplate: (type: FileType, content: string) => {
+    set((state) => ({
+      customTemplates: {
+        ...state.customTemplates,
+        [type]: content,
+      },
+    }));
+  },
+
+  resetCustomTemplate: (type: FileType) => {
+    set((state) => {
+      const { [type]: _, ...rest } = state.customTemplates;
+      return { customTemplates: rest };
+    });
+  },
+
+  setUploadedConfig: (type: FileType, content: string) => {
+    set((state) => ({
+      uploadedConfigs: {
+        ...state.uploadedConfigs,
+        [type]: content,
+      },
+    }));
   },
 }));
